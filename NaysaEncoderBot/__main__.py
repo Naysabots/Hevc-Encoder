@@ -145,7 +145,92 @@ if __name__ == "__main__" :
     async def restarter(app, message):
       data.clear()
       await message.reply_text("Successfully cleared Queue ...")
-         
+    @app.on_message(filters.incoming & filters.command(["crf", f"crf@{BOT_USERNAME}"]))
+    async def changecrf(app, message):
+        if message.from_user.id in AUTH_USERS:
+            cr = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {cr} crf"
+            crf.insert(0, f"{cr}")
+            await message.reply_text(OUT)
+        else:
+            await message.reply_text("Error")
+            
+    @app.on_message(filters.incoming & filters.command(["settings", f"settings@{BOT_USERNAME}"]))
+    async def settings(app, message):
+        if message.from_user.id in AUTH_USERS:
+            await message.reply_text(f"<b>The current settings will be added to your video file :</b>\n\n<b>Codec</b> : {codec[0]} \n<b>Crf</b> : {crf[0]} \n<b>Resolution</b> : {resolution[0]} \n<b>Preset</b> : {preset[0]} \n<b>Audio Bitrates</b> : {audio_b[0]}")
+            
+            
+               
+    @app.on_message(filters.incoming & filters.command(["resolution", f"resolution@{BOT_USERNAME}"]))
+    async def changer(app, message):
+        if message.from_user.id in AUTH_USERS:
+            r = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {r} resolution"
+            resolution.insert(0, f"{r}")
+            await message.reply_text(OUT)
+        else:
+            await message.reply_text("Error")
+
+            
+               
+    @app.on_message(filters.incoming & filters.command(["preset", f"preset@{BOT_USERNAME}"]))
+    async def changepr(app, message):
+        if message.from_user.id in AUTH_USERS:
+            pop = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {pop} preset"
+            preset.insert(0, f"{pop}")
+            await message.reply_text(OUT)
+        else:
+            await message.reply_text("Error")
+
+            
+    @app.on_message(filters.incoming & filters.command(["codec", f"codec@{BOT_USERNAME}"]))
+    async def changecode(app, message):
+        if message.from_user.id in AUTH_USERS:
+            col = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {col} codec"
+            codec.insert(0, f"{col}")
+            await message.reply_text(OUT)
+        else:
+            await message.reply_text("Error")
+             
+    @app.on_message(filters.incoming & filters.command(["audio", f"audio@{BOT_USERNAME}"]))
+    async def changea(app, message):
+        if message.from_user.id in AUTH_USERS:
+            aud = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {aud} audio"
+            audio_b.insert(0, f"{aud}")
+            await message.reply_text(OUT)
+        else:
+            await message.reply_text("Error")
+            
+        
+    @app.on_message(filters.incoming & filters.command(["compress", f"compress@{BOT_USERNAME}"]))
+    async def help_message(app, message):
+        if message.chat.id not in AUTH_USERS:
+            return await message.reply_text("You are not authorised to use this bot")
+        query = await message.reply_text("Added to Queue ⏰...\nPlease be patient, Compress will start soon", quote=True)
+        data.append(message.reply_to_message)
+        if len(data) == 1:
+         await query.delete()   
+         await add_task(message.reply_to_message)     
+ 
+    @app.on_message(filters.incoming & filters.command(["restart", f"restart@{BOT_USERNAME}"]))
+    async def restarter(app, message):
+        if message.from_user.id in AUTH_USERS:
+            await message.reply_text("•Restarting")
+            quit(1)
+    
+        
+        
+    @app.on_message(filters.incoming & filters.command(["exec", f"exec@{BOT_USERNAME}"]))
+    async def help_message(app, message):
+        await exec_message_f(app, message)
+        
+    @app.on_message(filters.incoming & filters.command(["eval", f"eval@{BOT_USERNAME}"]))
+    async def help_message(app, message):
+        await eval_message_f(app, message)         
     @app.on_message(filters.incoming & (filters.video | filters.document))
     async def help_message(app, message):        
         if not await db.is_user_exist(message.chat.id):
