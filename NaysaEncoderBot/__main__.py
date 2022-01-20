@@ -1,7 +1,7 @@
 # oof
 from datetime import datetime as dt
 import os
-from bot import (
+from NaysaEncoderBot import (
     APP_ID,
     API_HASH,
     AUTH_USERS,
@@ -20,23 +20,23 @@ from bot import (
     codec,
     watermark 
 )
-from bot.helper_funcs.utils import add_task, on_task_complete
+from NaysaEncoderBot.helper_funcs.utils import add_task, on_task_complete
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from translation import Translation
-from bot.plugins.incoming_message_fn import (
+from NaysaEncoderBot.plugins.incoming_message_fn import (
     incoming_start_message_f,
     incoming_compress_message_f,
     incoming_cancel_message_f
 )
 
-from bot.plugins.status_message_fn import (
+from NaysaEncoderBot.plugins.status_message_fn import (
     eval_message_f,
     exec_message_f,
     upload_log_file
 )
 
-from bot.commands import Command
+from NaysaEncoderBot.commands import Command
 
 sudo_users = "1666551439" 
 crf.append("30")
