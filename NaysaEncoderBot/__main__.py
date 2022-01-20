@@ -164,7 +164,6 @@ if __name__ == "__main__" :
                
     @app.on_message(filters.incoming & filters.command(["resolution", f"resolution@{BOT_USERNAME}"]))
     async def changer(app, message):
-        if message.from_user.id in AUTH_USERS:
             r = message.text.split(" ", maxsplit=1)[1]
             OUT = f"I will be using : {r} resolution"
             resolution.insert(0, f"{r}")
@@ -176,7 +175,6 @@ if __name__ == "__main__" :
                
     @app.on_message(filters.incoming & filters.command(["preset", f"preset@{BOT_USERNAME}"]))
     async def changepr(app, message):
-        if message.from_user.id in AUTH_USERS:
             pop = message.text.split(" ", maxsplit=1)[1]
             OUT = f"I will be using : {pop} preset"
             preset.insert(0, f"{pop}")
@@ -187,7 +185,6 @@ if __name__ == "__main__" :
             
     @app.on_message(filters.incoming & filters.command(["codec", f"codec@{BOT_USERNAME}"]))
     async def changecode(app, message):
-        if message.from_user.id in AUTH_USERS:
             col = message.text.split(" ", maxsplit=1)[1]
             OUT = f"I will be using : {col} codec"
             codec.insert(0, f"{col}")
@@ -197,7 +194,6 @@ if __name__ == "__main__" :
              
     @app.on_message(filters.incoming & filters.command(["audio", f"audio@{BOT_USERNAME}"]))
     async def changea(app, message):
-        if message.from_user.id in AUTH_USERS:
             aud = message.text.split(" ", maxsplit=1)[1]
             OUT = f"I will be using : {aud} audio"
             audio_b.insert(0, f"{aud}")
@@ -206,15 +202,7 @@ if __name__ == "__main__" :
             await message.reply_text("Error")
             
         
-    @app.on_message(filters.incoming & filters.command(["compress", f"compress@{BOT_USERNAME}"]))
-    async def help_message(app, message):
-        if message.chat.id not in AUTH_USERS:
-            return await message.reply_text("You are not authorised to use this bot")
-        query = await message.reply_text("Added to Queue ⏰...\nPlease be patient, Compress will start soon", quote=True)
-        data.append(message.reply_to_message)
-        if len(data) == 1:
-         await query.delete()   
-         await add_task(message.reply_to_message)     
+     
  
     @app.on_message(filters.incoming & filters.command(["restart", f"restart@{BOT_USERNAME}"]))
     async def restarter(app, message):
