@@ -102,7 +102,49 @@ if __name__ == "__main__" :
     async def restarter(app, message):
       data.clear()
       await message.reply_text("Successfully cleared Queue ...")
-         
+    @app.on_message(filters.incoming & filters.command(["crf", f"crf@{BOT_USERNAME}"]))
+    async def changecrf(app, message):
+            cr = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {cr} crf"
+            crf.insert(0, f"{cr}")
+            await message.reply_text(OUT)
+            
+    @app.on_message(filters.incoming & filters.command(["settings", f"settings@{BOT_USERNAME}"]))
+    async def settings(app, message):
+            await message.reply_text(f"<b>The current settings will be added to your video file :</b>\n\n<b>Codec</b> : {codec[0]} \n<b>Crf</b> : {crf[0]} \n<b>Resolution</b> : {resolution[0]} \n<b>Preset</b> : {preset[0]} \n<b>Audio Bitrates</b> : {audio_b[0]}")
+            
+            
+               
+    @app.on_message(filters.incoming & filters.command(["resolution", f"resolution@{BOT_USERNAME}"]))
+    async def changer(app, message):
+            r = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {r} resolution"
+            resolution.insert(0, f"{r}")
+            await message.reply_text(OUT)
+
+            
+               
+    @app.on_message(filters.incoming & filters.command(["preset", f"preset@{BOT_USERNAME}"]))
+    async def changepr(app, message):
+            pop = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {pop} preset"
+            preset.insert(0, f"{pop}")
+            await message.reply_text(OUT)
+
+            
+    @app.on_message(filters.incoming & filters.command(["codec", f"codec@{BOT_USERNAME}"]))
+    async def changecode(app, message):
+            col = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {col} codec"
+            codec.insert(0, f"{col}")
+            await message.reply_text(OUT)
+             
+    @app.on_message(filters.incoming & filters.command(["audio", f"audio@{BOT_USERNAME}"]))
+    async def changea(app, message):
+            aud = message.text.split(" ", maxsplit=1)[1]
+            OUT = f"I will be using : {aud} audio"
+            audio_b.insert(0, f"{aud}")
+            await message.reply_text(OUT)         
         
     @app.on_message(filters.incoming & (filters.video | filters.document))
     async def help_message(app, message):
